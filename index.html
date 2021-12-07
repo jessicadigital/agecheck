@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Age Assured Checkout</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="no-js">
+    <div class="overlay"></div>
+    <main>
+      <div class="container">
+        <header>
+          <h1><span class="icon">shopping_basket</span> Age Assured Checkout</h1>
+        </header>
+        <noscript>
+          <p>This demo requires Javascript.</p>
+          <p>Please enable Javascript in your browser to continue.</p>
+        </noscript>
+        <div id="steps">
+            <h3>Welcome</h3>
+            <section>
+                <div style="max-width:640px;margin:0 auto;">
+                <p>This prototype simulates the process of verifying a customer's age when purchasing age restricted products online using payment card details. This demonstrates the four key steps involved in the process:</p>
+                <ol>
+                  <li>Basket &ndash; Choice of items to be purchased from a range of age restricted and non-restricted products.</li>
+                  <li>MCC code &ndash; Generating of the applicable MCC code based on the items in the customer's basket.</li>
+                  <li>Payment &ndash; Entering payment card details, from which the customer's age is verified.</li>
+                  <li>Success &ndash; Confirmation that the order has been approved and the customer has passed the age verification checks.</li>
+                </ol>
+                <p><strong>Insert link to blog post/report/technical paper here</strong></p>
+                <p>To get started, click <a class="nextbtn" href="#">Next</a> below.</p>
+              </div>
+            </section>
+            <h3>Basket <a class="info_link" href="#" data-dialog="basket">info</a></h3>
+            <section class="basket">
+              <p>Add items to your basket by double clicking the available items on the left, moving them to your basket on the right. Note that you can select any combination of items, including age restricted and non-restricted items. You can remove items using the <strong>&times;</strong> button in the top right of each item.</p>
+              <div class="selector">
+                <div class="the_items half">
+                  <h3>Available items</h3>
+                  <div class="items_container"></div>
+                </div>
+                <div class="the_basket half">
+                  <h3>Your basket</h3>
+                  <div class="basket_container"></div>
+                  <div class="basket_error">
+                    <p class="icon">warning</p>
+                    <p>Your basket is empty.</p>
+                    <p>Please add some items before you checkout.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <h3>MCC code<a class="info_link" href="#" data-dialog="mcc_code">info</a></h3>
+            <section>
+                <p>At this stage, the system calculates the correct MCC code for the items in the basket based on age restrictions for the purchaser&apos;s location. This uses the loop described within the research report to identify the most restrictive item.</p>
+                <div class="mcc_calculation">
+                  <table id="mcc_calculation">
+                    <thead>
+                      <tr>
+                        <th>Age restriction</th>
+                        <th>MCC Code</th>
+                        <th>Items</th>
+                        <th># items</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="mcc_0" class="selected">
+                        <td>None</td>
+                        <td>5411</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                      <tr id="mcc_12">
+                        <td>12 <a href="#" class="note" data-dialog="mcc_12">info</a></td>
+                        <td>5482</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                      <tr id="mcc_15">
+                        <td>15 <a href="#" class="note" data-dialog="mcc_15">info</a></td>
+                        <td>5485</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                      <tr id="mcc_16">
+                        <td>16 <a href="#" class="note" data-dialog="mcc_16">info</a></td>
+                        <td>5486</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                      <tr id="mcc_18">
+                        <td>18 <a href="#" class="note" data-dialog="mcc_18">info</a></td>
+                        <td>5488</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                      <tr id="mcc_21">
+                        <td>21 <a href="#" class="note" data-dialog="mcc_21">info</a></td>
+                        <td>5491</td>
+                        <td class="age_items"></td>
+                        <td>0</td>
+                        <td><span class="icon">star</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              <p class="mcc_comment"></p>
+            </section>
+            <h3>Payment<a class="info_link" href="#" data-dialog="payment">info</a></h3>
+            <section>
+              <p class="error"></p>
+                <div class="payment_card">
+                  <p>At this stage of the checkout journey, the customer would enter their payment card details below.</p>
+                  <p>To simulate the process, select one of the preset payment card details from the right.</p>
+                  <p class="payment_error"></p>
+                  <form name="payment_card">
+                    <div class="payment_card_field">
+                      <label for="cardnum">Card number:</label>
+                      <input type="text" name="cardnum" value="" placeholder="Card number (16 digits)" readonly />
+                    </div>
+                    <div class="payment_card_field">
+                      <label for="expiry">Expiry date:</label>
+                      <input type="text" name="expiry" value="" placeholder="Expiry date" readonly />
+                    </div>
+                    <div class="payment_card_field">
+                      <label for="cardnum">CVV code (last 3 digits on back of card):</label>
+                      <input type="text" name="cvv" value="" placeholder="CVV code" readonly />
+                    </div>
+                    <a class="payment_submit" href="#" disabled="disabled">Pay now</a>
+                  </form>
+                </div>
+                <div class="payment_preset">
+                  <p>Select preset card details below:</p>
+                  <ul></ul>
+                </div>
+            </section>
+            <h3>Success</h3>
+            <section>
+              <div style="max-width:640px;margin:0 auto;">
+                <p><strong>The payment has been successfully processed.</strong></p>
+                <p>This indicates that the customer&apos;s bank verified their age through the MCC code, authorising the transaction. </p>
+                <p>Now that you have completed this transaction, you can <a href="#" class="return_to_basket">return to the basket stage</a> and simualte another customer journey using a different selection of products or alternate payment details.</p>
+                <hr />
+                <p>Want to find out more about this research? Read the report <strong>insert link</strong></p>
+              </div>
+            </section>
+        </div>
+      </div>
+    </main>
+    <div class="dialog" id="dialog_basket" title="Basket">
+      <p>At this stage, you can add items to your basket including age restricted prodcuts. No attempts are made to check if age restricted products are present or the age of the user.</p>
+    </div>
+    <div class="dialog" id="dialog_checkout" title="Checkout">
+      <p>When the user goes to checkout, the list of items to be purchased are collated and the purchaser's details collected. At this stage no information is known about the age of the purchaser.</p>
+    </div>
+    <div class="dialog" id="dialog_mcc_code" title="MCC Code">
+      <p>As the purchaser moves from the checkout to the payment page, the system identifies any age restricted products. This determines the MCC code, with the most restrictive code applied to the purchase. This is based on a code for grocery stores and supermarkets.</p>
+    </div>
+    <div class="dialog" id="dialog_payment" title="Payment">
+      <p>Now the purchaser enters their payment details. The transaction details along with the MCC code are passed to the relevant banking service, who uses the date of birth information contained within their systems to either accept or decline the transaction based on the age of the purchaser. A check is also made on the name and address entered to prevent those under age from using alternative delivery points.</p>
+    </div>
+    <div class="dialog" id="dialog_mcc_12" title="MCC Code for Age 12">
+      <p>Examples of age 12 restrictions include:</p>
+      <ul>
+        <li>Christmas crackers</li>
+        <li>Classification 12 movies</li>
+        <li>PEGI 12 video games</li>
+      </ul>
+    </div>
+    <div class="dialog" id="dialog_mcc_15" title="MCC Code for Age 15">
+      <p>Examples of age 15 restrictions include:</p>
+      <ul>
+        <li>Classification 15 movies</li>
+      </ul>
+    </div>
+    <div class="dialog" id="dialog_mcc_16" title="MCC Code for Age 16">
+      <p>Examples of age 16 restrictions include:</p>
+      <ul>
+        <li>Aerosol spray paints</li>
+        <li>Jumbo markers</li>
+        <li>Party poppers</li>
+        <li>PEGI 16 video games</li>
+      </ul>
+    </div>
+    <div class="dialog" id="dialog_mcc_18" title="MCC Code for Age 18">
+      <p>Examples of age 18 restrictions include:</p>
+      <ul>
+        <li>Alcohol</li>
+        <li>Cigarettes and papers</li>
+        <li>Fireworks</li>
+        <li>Knifes</li>
+		<li>Lottery tickets and scratchcards</li>
+        <li>Solvents</li>
+        <li>Classification 18 movies</li>
+        <li>PEGI 18 video games</li>
+      </ul>
+    </div>
+    <div class="dialog" id="dialog_mcc_21" title="MCC Code for Age 21">
+      <p>The UK does not have any products sold with an age restriction of 21, however allocating the code would permit the algorithm to be used within other locales, e.g. USA.</p>
+    </div>
+    <div class="dialog no-close" id="dialog_processing" title="Processing...">
+      <p>Your payment is being processed.</p>
+      <p><div class="loader"></div></p>
+    </div>
+    <div class="dialog" id="dialog_failed" title="Payment declined">
+      <p>Your payment has been declined as the card holder is not old enough to purchase all of the items within the basket.</p>
+      <p>You can return to the basket and remove items before reattempting the transaction.</p>
+    </div>
+    <div class="dialog" id="dialog_remove" title="Remove item?">
+      <p>Are you sure you want to remove <strong class="the_item"></strong> from your basket?</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
